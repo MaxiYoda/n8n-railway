@@ -1,4 +1,6 @@
 FROM n8nio/n8n:latest-debian
 USER root
-RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node/.n8n
-USER node
+RUN apt-get update && apt-get install -y su-exec
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
